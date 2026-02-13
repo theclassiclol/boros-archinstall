@@ -139,13 +139,14 @@ HEREDOC
 
 info "Launching archinstall with BorOS configuration..."
 info "This will now open the archinstall interactive installer"
-info "You can customize installation options as needed"
+info "You will be prompted to:"
+info "  1. Select disk and partitioning"
+info "  2. Set root password"
+info "  3. Create user account"
+info ""
 
 # Run archinstall with the BorOS configuration
-archinstall \
-    --config="$CONFIG_FILE" \
-    --creds-root=password \
-    --creds-user=password
+archinstall --config="$CONFIG_FILE"
 
 if [ $? -eq 0 ]; then
     success "BorOS installation completed successfully!"
