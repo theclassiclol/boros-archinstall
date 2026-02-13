@@ -86,8 +86,7 @@ info "Setting up BorOS profile..."
 CONFIG_FILE="$TEMP_DIR/boros-profile.json"
 cat > "$CONFIG_FILE" << 'HEREDOC'
 {
-  "version": "2.4",
-  "archinstall-language": "english",
+  "archinstall-language": "en",
   "timezone": "UTC",
   "keyboard-layout": "us",
   "mirror-region": {
@@ -95,26 +94,9 @@ cat > "$CONFIG_FILE" << 'HEREDOC'
   },
   "bootloader": "grub",
   "cpu-ucode": "auto",
-  "disk_encryption": null,
-  "filesystems": {
-    "/dev/sda": {
-      "partitions": [
-        {
-          "size": "550MiB",
-          "type": "EFI System Partition",
-          "mountpoint": "/boot"
-        },
-        {
-          "size": "100%",
-          "type": "Linux filesystem",
-          "mountpoint": "/"
-        }
-      ]
-    }
-  },
   "hostname": "boros",
   "kernel": "linux-cachyos",
-  "locale": ["en_US.UTF-8"],
+  "locale": "en_US.UTF-8",
   "packages": [
     "base",
     "linux-cachyos",
@@ -132,8 +114,7 @@ cat > "$CONFIG_FILE" << 'HEREDOC'
   ],
   "profile": "minimal",
   "sudo": true,
-  "swap": true,
-  "timezone": "UTC"
+  "swap": true
 }
 HEREDOC
 
