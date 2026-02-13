@@ -1,0 +1,50 @@
+# BorOS License
+
+## Distribution License
+
+BorOS (Borodinsky's Operating System) is provided as-is for educational and personal use.
+
+### Components
+
+- **Archinstall Framework**: Used under GPL-3.0
+- **Arch Linux Packages**: Licensed under various free software licenses
+- **CachyOS Kernel**: GPL-2.0
+- **BorOS Installer & Configuration**: Custom GPL-3.0
+
+### Your Rights
+
+You are free to:
+- ✅ Use BorOS for personal and educational purposes
+- ✅ Modify the installer and configuration for your needs
+- ✅ Redistribute BorOS with attribution
+- ✅ Create derivatives (with acknowledgment)
+
+You must:
+- 📋 Provide attribution to the original authors
+- 📋 Link to this license
+- 📋 Maintain the same license on derivative works
+
+### Trademark Notice
+
+"BorOS" and the BorOS logo are property of the BorOS Project.
+
+### Third-Party Licenses
+
+All packages installed by BorOS maintain their original licenses. See:
+- Arch Linux: https://www.archlinux.org/
+- CachyOS: https://cachyos.org/
+- Individual package licenses in `/usr/share/licenses/`
+
+### Disclaimer
+
+BorOS is provided without warranty. Use at your own risk. The creators are not responsible for:
+- Data loss
+- System damage
+- Security vulnerabilities
+- Any other damages
+
+---
+
+For full GPL-3.0 license text, visit: https://www.gnu.org/licenses/gpl-3.0.html
+
+**Last Updated**: February 2026

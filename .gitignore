@@ -1,0 +1,76 @@
+# .gitignore for BorOS Archinstall
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# OS-specific
+.DS_Store
+Thumbs.db
+.directory
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.iml
+.vim/
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+build/
+dist/
+*.o
+*.so
+*.a
+
+# Package manager
+node_modules/
+*.egg-info/
+__pycache__/
+*.pyc
+
+# Test coverage
+.coverage
+htmlcov/
+.tox/
+
+# Local configuration (don't commit personal settings)
+local.conf
+*.local.sh
+.env.local
+
+# Installation artifacts
+/tmp/
+/temp/
+/downloads/
+
+# Documentation
+site/
+
+# Archives
+*.tar
+*.tar.gz
+*.tar.bz2
+*.zip
+*.rar
+
+# ISO files (large)
+*.iso
+
+# Virtual machine snapshots
+*.vmdk
+*.vdi
+*.vhd
+
+# User-specific files
+.user
+.session

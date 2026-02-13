@@ -1,0 +1,40 @@
+# BorOS Default Packages
+# These packages are installed with every BorOS installation
+
+# Base system
+base
+linux-cachyos
+linux-cachyos-headers
+linux-firmware
+
+# Bootloader and EFI
+grub
+efibootmgr
+
+# Network
+networkmanager
+net-tools
+curl
+wget
+
+# Utilities
+git
+vim
+nano
+htop
+neofetch
+zip
+unzip
+tar
+gzip
+base-devel
+
+# System monitoring
+sysstat
+iotop
+
+# Shell and tools
+bash-completion
+man-db
+man-pages
+texinfo
