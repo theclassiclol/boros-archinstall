@@ -36,19 +36,27 @@ print_info "BorOS Installation Bootstrap"
 print_info "Installing dependencies..."
 
 # Install required packages
-pacman -Sy --noconfirm git curl
+pacman -Sy --noconfirm git curl archinstall
 
-# Create installation directory
-INSTALL_DIR="/opt/boros"
-mkdir -p "$INSTALL_DIR"
-
+print_info ""
 print_info "Downloading BorOS installer from GitHub..."
+
+# Create temporary directory
+INSTALL_DIR="/tmp/boros-install"
+rm -rf "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR"
 
 # Clone the installer
 if git clone https://github.com/theclassiclol/boros-archinstall "$INSTALL_DIR" --depth 1; then
     print_success "Downloaded successfully"
+    print_info ""
     print_info "Starting BorOS installation..."
+    print_info "Follow the interactive archinstall prompts"
+    print_info ""
     bash "$INSTALL_DIR/install.sh"
+    EXIT_CODE=$?
+    rm -rf "$INSTALL_DIR"
+    exit $EXIT_CODE
 else
     print_error "Failed to download BorOS installer"
     exit 1

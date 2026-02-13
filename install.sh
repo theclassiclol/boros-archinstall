@@ -79,61 +79,73 @@ else
     exit 1
 fi
 
-# Define BorOS profile configuration
-info "Setting up BorOS profile..."
-
-# Create archinstall configuration
-CONFIG_FILE="$TEMP_DIR/boros-profile.json"
-cat > "$CONFIG_FILE" << 'HEREDOC'
-{
-  "archinstall-language": "en",
-  "timezone": "UTC",
-  "keyboard-layout": "us",
-  "mirror-region": {
-    "auto": true
-  },
-  "bootloader": "grub",
-  "cpu-ucode": "auto",
-  "hostname": "boros",
-  "kernel": "linux-cachyos",
-  "locale": "en_US.UTF-8",
-  "packages": [
-    "base",
-    "linux-cachyos",
-    "linux-cachyos-headers",
-    "networkmanager",
-    "grub",
-    "efibootmgr",
-    "git",
-    "vim",
-    "nano",
-    "htop",
-    "curl",
-    "wget",
-    "base-devel"
-  ],
-  "profile": "minimal",
-  "sudo": true,
-  "swap": true
-}
-HEREDOC
-
-info "Launching archinstall with BorOS configuration..."
-info "This will now open the archinstall interactive installer"
-info "You will be prompted to:"
-info "  1. Select disk and partitioning"
-info "  2. Set root password"
-info "  3. Create user account"
+info "Launching archinstall interactive installer..."
+info ""
+info "Follow the prompts to:"
+info "  1. Select your installation disk"
+info "  2. Choose partitioning scheme"
+info "  3. Configure localization & timezone"
+info "  4. Set root password"
+info "  5. Create user account"
+info "  6. Select packages (CachyOS kernel will be added)"
+info ""
+success "Starting archinstall..."
 info ""
 
-# Run archinstall with the BorOS configuration
-archinstall --config="$CONFIG_FILE"
+# Run archinstall interactively - user configures everything
+archinstall
 
 if [ $? -eq 0 ]; then
+    success "Base system installation completed!"
+    info ""
+    info "Setting up BorOS-specific configuration..."
+    
+    # Create post-installation script to install CachyOS kernel
+    POST_INSTALL="/tmp/boros-post-install.sh"
+    cat > "$POST_INSTALL" << 'POSTINSTALL'
+#!/bin/bash
+# BorOS Post-Installation Setup
+
+# Replace default kernel with CachyOS
+echo "Installing CachyOS kernel..."
+pacman -Sy --noconfirm linux-cachyos linux-cachyos-headers
+
+# Remove default linux kernel if present
+pacman -R --noconfirm linux || true
+
+# Set hostname to BorOS
+hostnamectl set-hostname boros
+hostnamectl set-pretty-hostname "BorOS"
+
+# Add BorOS branding
+echo "setup_boros_branding() {
+    cat << 'EOF'
+    ╔═══════════════════════════════════════╗
+    ║              🛡️  BorOS  ✏️               ║
+    ║   Performance Linux Distribution     ║
+    ║        Powered by CachyOS Kernel    ║
+    ╚═══════════════════════════════════════╝
+EOF
+}" >> /etc/profile.d/boros.sh
+
+echo "BorOS installation complete!"
+echo "Kernel: $(uname -r)"
+POSTINSTALL
+    
+    info "Post-installation script created"
     success "BorOS installation completed successfully!"
-    success "Your system is ready. Reboot to complete setup."
+    info ""
+    success "Your system is ready!"
+    info ""
+    info "After reboot, run:"
+    info "  sudo bash /tmp/boros-post-install.sh"
+    info ""
+    info "Or install CachyOS kernel manually:"
+    info "  sudo pacman -S linux-cachyos linux-cachyos-headers"
+    info "  sudo pacman -R linux"
+    info ""
     info "Repository: https://github.com/theclassiclol/boros-archinstall"
 else
-    error "Installation failed or was cancelled"
+    error "Installation was cancelled or failed"
     exit 1
 fi
